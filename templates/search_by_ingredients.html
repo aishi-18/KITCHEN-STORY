@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search by Ingredients - Kitchen Story</title>
+    <style>
+        body {
+            background: url('https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Poppins', sans-serif;
+            color: #264653;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 2rem;
+        }
+
+        .container {
+            max-width: 800px;
+            padding: 0 1rem;
+        }
+
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5em;
+            color: #E76F51;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        form {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            margin-bottom: 2rem;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            color: #264653;
+            margin-bottom: 0.5rem;
+            font-size: 0.9em;
+        }
+
+        input {
+            width: 70%;
+            padding: 0.75rem;
+            margin-right: 1rem;
+            border: 1px solid #2A9D8F;
+            border-radius: 5px;
+            font-size: 1em;
+            color: #264653;
+        }
+
+        button {
+            padding: 0.75rem 1.5rem;
+            background-color: #F4A261;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+
+        button:hover {
+            background-color: #E9C46A;
+        }
+
+        h2 {
+            color: #2A9D8F;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        ul li strong {
+            color: #264653;
+        }
+
+        ul li em {
+            color: #264653;
+            font-style: normal;
+            font-weight: 500;
+        }
+
+        p {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        /* Load the Poppins font from Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>KITCHEN STORY</h1>
+
+        <form method="POST">
+            <label for="ingredients">Enter ingredients (comma-separated):</label><br>
+            <input type="text" id="ingredients" name="ingredients" required placeholder="e.g., tomato, onion, garlic">
+            <button type="submit">Search</button>
+        </form>
+
+        {% if recipes is not none %}
+            <h2>Results:</h2>
+            {% if recipes %}
+                <ul>
+                    {% for recipe in recipes %}
+                        <li>
+                            <strong>{{ recipe[1] }}</strong> - {{ recipe[2] }}<br>
+                            <em>Ingredients:</em> {{ recipe[3] }}<br>
+                            <em>Instructions:</em> {{ recipe[4] }}
+                        </li>
+                        <br>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No recipes found for the given ingredients.</p>
+            {% endif %}
+        {% endif %}
+    </div>
+</body>
+</html>

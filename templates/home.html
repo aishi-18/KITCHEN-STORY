@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block content_styles %}
+<style>
+    /* Ensure recipe-home styles are applied */
+    .recipe-home {
+        padding: 40px 0 !important;
+        min-height: 100vh !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        background-image: url('https://images.unsplash.com/photo-1490818387583-1baba5e638af?auto=format&fit=crop&w=1920&q=80') !important;
+        background-size: cover !important;
+        background-position: center !important;
+        background-attachment: fixed !important;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid recipe-home">
+  <div class="container recipe-container">
+    <h1 class="text-center mb-4 recipe-title">Welcome, {{ username }}!</h1>
+    <p class="text-center lead">Choose an option below:</p>
+
+    <ul class="option-list">
+      <li><button class="btn btn-cuisine" onclick="window.location.href='/search'">Search by Cuisine</button></li>
+      <li><button class="btn btn-ingredients" onclick="window.location.href='/search_by_ingredients'">Search by Ingredients</button></li>
+      <li><button class="btn btn-saved" onclick="window.location.href='/saved_recipes'">View Saved Recipes</button></li>
+      <li><button class="btn btn-random" onclick="window.location.href='/random_recipe'">Surprise Me!</button></li>
+      <li><button class="btn btn-logout" onclick="window.location.href='/logout'">Logout</button></li>
+    </ul>
+  </div>
+</div>
+{% endblock %}

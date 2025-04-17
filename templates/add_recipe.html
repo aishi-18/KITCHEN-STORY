@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Recipe - Kitchen Story</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+
+    <div class="container mt-5">
+        <h1>Add a New Recipe</h1>
+        
+        <!-- Success/Error Messages -->
+        {% if success %}
+            <div class="alert alert-success">{% extends 'layout.html' %}
+
+{% block content %}
+    <h1>Your Saved Recipes</h1>
+    <ul>
+        {% for recipe in recipes %}
+            <li>
+                <h3>{{ recipe.name }}</h3>
+                <p>{{ recipe.cuisine }}</p>
+                <p>{{ recipe.ingredients }}</p>
+                <p>{{ recipe.instructions }}</p>
+            </li>
+        {% else %}
+            <p>You have no saved recipes.</p>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+                {{ success }}
+            </div>
+        {% elif error %}
+            <div class="alert alert-danger">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        <!-- Recipe Form -->
+        <form method="POST" action="/add_recipe">
+            <div class="form-group">
+                <label for="name">Recipe Name</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="cuisine">Cuisine</label>
+                <input type="text" class="form-control" id="cuisine" name="cuisine" required>
+            </div>
+
+            <div class="form-group">
+                <label for="ingredients">Ingredients</label>
+                <textarea class="form-control" id="ingredients" name="ingredients" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="instructions">Instructions</label>
+                <textarea class="form-control" id="instructions" name="instructions" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-success">Add Recipe</button>
+        </form>
+    </div>
+
+</body>
+</html>

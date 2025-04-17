@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - All Recipes</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1>All Recipes (Admin Panel)</h1>
+
+    {% if recipes %}
+        <ul class="list-group mt-4">
+            {% for recipe in recipes %}
+                <li class="list-group-item">
+                    <h5>{{ recipe[1] }} ({{ recipe[2] }})</h5>
+                    
+                    <p><strong>Ingredients:</strong></p>
+                    <ul>
+                        {% for ingredient in recipe[3].split(',') %}
+                            <li>{{ ingredient.strip() }}</li>
+                        {% endfor %}
+                    </ul>
+
+                    <p><strong>Instructions:</strong></p>
+                    <ol>
+                        {% for step in recipe[4].split('.') %}
+                            {% if step.strip() %}
+                                <li>{{ step.strip() }}</li>
+                            {% endif %}
+                        {% endfor %}
+                    </ol>
+
+                    <p><strong>Average Rating:</strong> {{ recipe[5] if recipe[5] else "No ratings yet" }}</p>
+
+                    <form method="POST" action="{{ url_for('delete_recipe', recipe_id=recipe[0]) }}">
+                        <button type="submit" class="btn btn-danger">Delete Recipe</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No recipes found in the database.</p>
+    {% endif %}
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

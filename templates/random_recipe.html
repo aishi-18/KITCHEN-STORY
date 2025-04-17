@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container" style="background: url('https://images.unsplash.com/photo-1490818387583-1baba5e638af?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed; background-size: cover; padding-top: 2rem;">
+  {% if recipe %}
+    <h1 class="mb-4 text-center" style="font-size: 2.5em; color: #E76F51;">{{ recipe.name }}</h1>
+    <div class="recipe-card p-4 mb-5" style="background-color: rgba(255, 255, 255, 0.9); border-radius: 20px; box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);">
+      <p><strong>Cuisine:</strong> {{ recipe.cuisine }}</p>
+      <p><strong>Ingredients:</strong></p>
+      <ul>
+        {% for ingredient in recipe.ingredients.split(',') %}
+          <li>{{ ingredient.strip() }}</li>
+        {% endfor %}
+      </ul>
+      <p><strong>Instructions:</strong></p>
+      <ol>
+        {% for step in recipe.instructions.split('.') %}
+          {% if step.strip() %}
+            <li>{{ step.strip() }}.</li>
+          {% endif %}
+        {% endfor %}
+      </ol>
+      
+      <p><strong>Average Rating:</strong> {{ recipe.average_rating or "Not rated yet" }}</p>
+
+      <form method="POST" action="/save_recipe/{{ recipe.id }}">
+        <button type="submit" class="btn btn-primary">Save Recipe</button>
+      </form>
+    </div>
+  {% else %}
+    <p>No recipe found. Try adding some recipes to the database first.</p>
+  {% endif %}
+  
+  <a href="/" class="btn btn-secondary mt-4">Back to Home</a>
+</div>
+{% endblock %}

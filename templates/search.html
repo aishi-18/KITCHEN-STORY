@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Recipes - Kitchen Story</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: url('https://images.unsplash.com/photo-1490818387583-1baba5e638af?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Poppins', sans-serif;
+            color: #264653;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 2rem;
+        }
+
+        .container {
+            max-width: 800px;
+            padding: 0 1rem;
+        }
+
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5em;
+            color: #E76F51;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        .recipe-search-form, .recipe-card {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(5px);
+        }
+
+        .recipe-card h4 {
+            font-weight: 600;
+            color: #264653;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-weight: 600;
+            margin-top: 1rem;
+            color: #2A9D8F;
+        }
+
+        ul, ol {
+            padding-left: 1.5rem;
+            color: #264653;
+        }
+
+        .form-group label {
+            color: #264653;
+            font-size: 0.9em;
+        }
+
+        .form-control {
+            border: 1px solid #2A9D8F;
+            border-radius: 5px;
+            color: #264653;
+        }
+
+        .btn-primary {
+            background-color: #F4A261;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            background-color: #E9C46A;
+        }
+
+        .btn-warning {
+            background-color: #F4A261;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+
+        .btn-warning:hover {
+            background-color: #E9C46A;
+        }
+
+        .btn-success {
+            background-color: #2A9D8F;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+
+        .btn-success:hover {
+            background-color: #E9C46A;
+        }
+
+        .btn-secondary {
+            background-color: #264653;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+
+        .btn-secondary:hover {
+            background-color: #E9C46A;
+        }
+
+        a {
+            color: #F4A261;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: #E76F51;
+        }
+
+        /* Load the Poppins font from Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>KITCHEN STORY</h1>
+    <form method="POST" action="/search" class="recipe-search-form mb-5">
+        <div class="form-group">
+            <label for="cuisine">Cuisine</label>
+            <input type="text" class="form-control" id="cuisine" name="cuisine" placeholder="Enter cuisine (e.g., Italian)">
+        </div>
+
+        <div class="form-group">
+            <label for="ingredient">Ingredients</label>
+            <input type="text" class="form-control" id="ingredient" name="ingredient" placeholder="Enter ingredients (e.g., chicken, rice)">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    {% if recipes %}
+        <h3>Search Results:</h3>
+        {% for recipe in recipes %}
+            <div class="recipe-card">
+                <h4>{{ recipe[1] }} <small class="text-muted">({{ recipe[2] }})</small></h4>
+
+                <div class="section-title">Ingredients:</div>
+                <ul>
+                    {% for ingredient in recipe[3].split(',') %}
+                        <li>{{ ingredient.strip() }}</li>
+                    {% endfor %}
+                </ul>
+
+                <div class="section-title">Instructions:</div>
+                <ol>
+                    {% for step in recipe[4].split('.') %}
+                        {% if step.strip() %}
+                            <li>{{ step.strip() }}.</li>
+                        {% endif %}
+                    {% endfor %}
+                </ol>
+
+                {% if recipe[10] %}
+                    <p class="mt-3"><strong>Average Rating:</strong> {{ '%.2f'|format(recipe[10]) }}/5</p>
+                {% endif %}
+
+                <!-- Rating Form -->
+                <form method="POST" action="/rate_recipe/{{ recipe[0] }}" class="mt-3">
+                    <div class="form-group">
+                        <label for="rating">Rate this Recipe (1-5):</label>
+                        <select class="form-control" id="rating" name="rating" required>
+                            <option value="">Select rating</option>
+                            {% for i in range(1, 6) %}
+                                <option value="{{ i }}">{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-warning">Submit Rating</button>
+                </form>
+
+                <a href="/save_recipe/{{ recipe[0] }}" class="btn btn-success mt-2">Save this recipe</a>
+            </div>
+        {% endfor %}
+    {% elif recipes is not none %}
+        <p class="mt-4">No recipes found. Try different search terms!</p>
+    {% endif %}
+
+    <a href="/" class="btn btn-secondary mt-4">Back to Home</a>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

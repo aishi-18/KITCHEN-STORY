@@ -1,0 +1,241 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    color: #264653;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header Styling */
+header {
+    background-color: #003049; /* Adjusted to fit palette */
+    padding: 10px 0;
+    color: white;
+    text-align: center;
+    font-size: 24px;
+}
+
+/* Container Styles */
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Links */
+a {
+    color: #E76F51; /* Adjusted to palette */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #F4A261; /* Adjusted to palette */
+}
+
+/* Buttons */
+button {
+    background-color: #E76F51; /* Adjusted to palette */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #F4A261; /* Adjusted to palette */
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+input[type="text"], input[type="password"], input[type="email"], textarea {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #E9C46A; /* Adjusted to palette */
+    color: #264653;
+}
+
+/* Footer */
+footer {
+    background-color: #003049; /* Adjusted to fit palette */
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+footer a {
+    color: #E9C46A; /* Adjusted to palette */
+}
+
+footer a:hover {
+    color: #F4A261; /* Adjusted to palette */
+}
+
+/* Section Highlights */
+.highlight {
+    background-color: #E9C46A; /* Adjusted to palette */
+    color: #264653;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.card {
+    background-color: white;
+    border: 1px solid #E76F51; /* Adjusted to palette */
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px 0;
+}
+
+/* Recipe Homepage Styles */
+.recipe-home {
+    background-image: url('https://images.unsplash.com/photo-1490818387583-1baba5e638af?auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    color: #264653;
+    padding: 40px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.recipe-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    max-width: 700px;
+    width: 90%;
+    text-align: center;
+}
+
+.recipe-title {
+    color: #F4A261;
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.lead {
+    color: #264653;
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.option-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+}
+
+.option-list li {
+    margin: 0;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 25px;
+    font-size: 1.1em;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    width: 250px;
+    max-width: 100%;
+    text-align: center;
+    margin: 0 auto;
+    border: none; /* Remove border for consistency with button style */
+}
+
+.btn-cuisine {
+    background-color: #2A9D8F;
+}
+
+.btn-cuisine:hover {
+    background-color: #264653;
+}
+
+.btn-ingredients {
+    background-color: #E9C46A;
+    color: #264653;
+}
+
+.btn-ingredients:hover {
+    background-color: #264653;
+    color: #fff;
+}
+
+.btn-saved {
+    background-color: #F4A261;
+}
+
+.btn-saved:hover {
+    background-color: #264653;
+}
+
+.btn-random {
+    background-color: #E76F51;
+}
+
+.btn-random:hover {
+    background-color: #264653;
+}
+
+.btn-logout {
+    background-color: #E76F51;
+}
+
+.btn-logout:hover {
+    background-color: #264653;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+    }
+
+    button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .recipe-title {
+        font-size: 2em;
+    }
+
+    .lead {
+        font-size: 1em;
+    }
+
+    .btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 1em;
+        width: 100%;
+    }
+
+    .recipe-container {
+        padding: 2rem;
+    }
+}
